@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>xbotpp.botio &mdash; xbot++ 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="xbot++ 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="xbotpp" href="../xbotpp.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">xbot++ 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../xbotpp.html" accesskey="U">xbotpp</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for xbotpp.botio</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c"># vim: noai:ts=4:sw=4:expandtab:syntax=python</span>
+
+<div class="viewcode-block" id="BotIO"><a class="viewcode-back" href="../../internal/botio.html#xbotpp.botio.BotIO">[docs]</a><span class="k">class</span> <span class="nc">BotIO</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;\</span>
+<span class="sd">    Class handling the IO functions of xbot++.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bot</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span> <span class="o">=</span> <span class="n">bot</span>
+
+<div class="viewcode-block" id="BotIO.read"><a class="viewcode-back" href="../../internal/botio.html#xbotpp.botio.BotIO.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;\</span>
+<span class="sd">        Reads input from an IRC event (like a channel message), calls message-bound modules, and determines</span>
+<span class="sd">        if any command modules need to be executed.</span>
+
+<span class="sd">        If the received message starts with the bot prefix character, this function assumes that the message</span>
+<span class="sd">        is a bot command string.</span>
+
+<span class="sd">        Handling of bot commands flows as following:</span>
+
+<span class="sd">        (1)</span>
+<span class="sd">            Split the message by the pipe character (``|``), and treat each segment as a separate command </span>
+<span class="sd">            in a sequence of commands.</span>
+
+<span class="sd">        (2)</span>
+<span class="sd">            Take the first word of a command as the command&#39;s name, and search for the command in the</span>
+<span class="sd">            dictionary of known commands.</span>
+
+<span class="sd">        (3)</span>
+<span class="sd">            If the command exists, check that the user executing the command has the privileges to do so,</span>
+<span class="sd">            stopping execution if he does not.</span>
+
+<span class="sd">        (4)</span>
+<span class="sd">            Execute the command, storing the output of the command in the buffer, and passing the arguments</span>
+<span class="sd">            passed and the output buffer of the previously executed command in the sequence to the command,</span>
+<span class="sd">            if any.</span>
+
+<span class="sd">        (5)</span>
+<span class="sd">            If there are any commands in the sequence left to be executed, jump to (2).</span>
+
+<span class="sd">        :param client: the :py:class:`irc.client` that received the command</span>
+<span class="sd">        :type client: :py:class:`irc.client`</span>
+<span class="sd">        :param event: the :py:class:`irc.client.Event` that triggered this function</span>
+<span class="sd">        :type event: :py:class:`irc.client.Event`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s">&#39;privmsg&#39;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s">&#39;privmsg&#39;</span><span class="p">][</span><span class="n">elem</span><span class="p">][</span><span class="mi">0</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">prefix</span><span class="p">):</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">)]</span>
+            <span class="n">buf</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+
+            <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+                <span class="n">cmdargs</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="n">cmdargs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cmdargs</span> <span class="o">=</span> <span class="n">cmdargs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s">&#39;command&#39;</span><span class="p">][</span><span class="n">command</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;admin&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">nick</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;bot&quot;</span><span class="p">,</span> <span class="s">&quot;owner&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="n">buf</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">: Not authorized.&quot;</span> <span class="o">%</span> <span class="n">command</span>
+                        <span class="k">continue</span>
+
+                <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s">&#39;command&#39;</span><span class="p">][</span><span class="n">command</span><span class="p">][</span><span class="mi">0</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">cmdargs</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> -&gt; </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">buf</span><span class="p">),</span> <span class="s">&quot;out&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">buf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">):</span>
+                <span class="n">client</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">xbot++ 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../xbotpp.html" >xbotpp</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, aki--aki.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+sprunge
+=======
+
+.. automodule:: modules.sprunge
+   :members:

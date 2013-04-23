@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module API &mdash; xbot++ 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="xbot++ 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Writing a module for xbot++" href="howto/modulehowto.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="howto/modulehowto.html" title="Writing a module for xbot++"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">xbot++ 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-api">
+<span id="moduleapi"></span><h1>Module API<a class="headerlink" href="#module-api" title="Permalink to this headline">¶</a></h1>
+<p>You may want to take a look at <a class="reference internal" href="howto/modulehowto.html#modulehowto"><em>Writing a module for xbot++</em></a>.</p>
+<dl class="class">
+<dt id="xbotpp.modules.Module">
+<em class="property">class </em><tt class="descclassname">xbotpp.modules.</tt><tt class="descname">Module</tt><a class="reference internal" href="_modules/xbotpp/modules.html#Module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for xbot++ modules.</p>
+<dl class="method">
+<dt id="xbotpp.modules.Module.action">
+<tt class="descname">action</tt><big>(</big><em>bot</em>, <em>event</em>, <em>args</em>, <em>buf</em><big>)</big><a class="reference internal" href="_modules/xbotpp/modules.html#Module.action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Module.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default event handler.</p>
+<p>If <cite>self.bind</cite> is not set in the module, this function is called when a bot command
+matching the module&#8217;s name is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bot</strong> (<a class="reference internal" href="internal/core.html#xbotpp.Bot" title="xbotpp.Bot"><tt class="xref py py-class docutils literal"><span class="pre">xbotpp.Bot</span></tt></a>) &#8211; the bot that the function is being called by</li>
+<li><strong>event</strong> (<tt class="xref py py-class docutils literal"><span class="pre">irc.client.Event</span></tt>) &#8211; the <tt class="xref py py-class docutils literal"><span class="pre">irc.client.Event</span></tt> which initiated this command</li>
+<li><strong>args</strong> (<em>list</em>) &#8211; list of the arguments to the command</li>
+<li><strong>buf</strong> (<em>str</em>) &#8211; output from the previous command in a sequence of chained commands,
+or the empty string if there was no output</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xbotpp.modules.Module.bind">
+<tt class="descname">bind</tt><em class="property"> = None</em><a class="headerlink" href="#xbotpp.modules.Module.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of bot functions to bind to. Each entry is of the format:</p>
+<blockquote>
+<div>[ <cite>type</cite>, <cite>name</cite>, <cite>callback</cite>, <cite>permission_level</cite> ]</div></blockquote>
+<ul>
+<li><p class="first"><cite>type</cite> is one of &#8220;command&#8221;, &#8220;url&#8221;, &#8220;privmsg&#8221;.</p>
+</li>
+<li><dl class="first docutils">
+<dt><cite>name</cite> is the name of the command in case of <cite>type == &#8220;command&#8221;</cite>,</dt>
+<dd><p class="first last">the regular expression to match a URL as a string in case of <cite>type == &#8220;url&#8221;</cite>,
+else the friendly name for the callback.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><cite>callback</cite> is the function to call (with parameters of <a class="reference internal" href="#xbotpp.modules.Module.action" title="xbotpp.modules.Module.action"><tt class="xref py py-func docutils literal"><span class="pre">xbotpp.modules.Module.action()</span></tt></a>)</p>
+</li>
+<li><p class="first"><cite>permission_level</cite> is one of &#8220;common&#8221;, &#8220;admin&#8221;.</p>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Module.load">
+<tt class="descname">load</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/xbotpp/modules.html#Module.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Module.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that is run when the module is loaded.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xbotpp.modules.Module.name">
+<tt class="descname">name</tt><em class="property"> = None</em><a class="headerlink" href="#xbotpp.modules.Module.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the module. Defaults to the class name if not explicitly specified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Module.unload">
+<tt class="descname">unload</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/xbotpp/modules.html#Module.unload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Module.unload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that is run when the module is unloaded.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="howto/modulehowto.html"
+                        title="previous chapter">Writing a module for xbot++</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/moduleapi.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="howto/modulehowto.html" title="Writing a module for xbot++"
+             >previous</a> |</li>
+        <li><a href="index.html">xbot++ 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, aki--aki.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

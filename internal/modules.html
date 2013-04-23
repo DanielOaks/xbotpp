@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Modules &mdash; xbot++ 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="xbot++ 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Internal modules" href="index.html" />
+    <link rel="next" title="Bot IO" href="botio.html" />
+    <link rel="prev" title="Bot" href="core.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="botio.html" title="Bot IO"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.html" title="Bot"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">xbot++ 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Internal modules</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="modules">
+<span id="id1"></span><h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="xbotpp.modules.Modules">
+<em class="property">class </em><tt class="descclassname">xbotpp.modules.</tt><tt class="descname">Modules</tt><big>(</big><em>bot</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to handle loading, reloading and unloading of xbot++ modules.</p>
+<dl class="method">
+<dt id="xbotpp.modules.Modules.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>bot</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize module loading routines.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bot</strong> (<a class="reference internal" href="core.html#xbotpp.Bot" title="xbotpp.Bot"><tt class="xref py py-class docutils literal"><span class="pre">xbotpp.Bot</span></tt></a>) &#8211; the <a class="reference internal" href="core.html#xbotpp.Bot" title="xbotpp.Bot"><tt class="xref py py-class docutils literal"><span class="pre">xbotpp.Bot</span></tt></a> that this class will be handling modules foc</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Modules.add_path">
+<tt class="descname">add_path</tt><big>(</big><em>path</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules.add_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules.add_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add <cite>path</cite> to the search path for modules.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; path to add to the search path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Modules.load">
+<tt class="descname">load</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the module named <cite>name</cite>, looking in the search path for the module, and calls the
+module&#8217;s <a class="reference internal" href="../moduleapi.html#xbotpp.modules.Module.load" title="xbotpp.modules.Module.load"><tt class="xref py py-func docutils literal"><span class="pre">load()</span></tt></a> function after loading it.</p>
+<p>Returns <tt class="xref py py-const docutils literal"><span class="pre">True</span></tt> on success, <tt class="xref py py-const docutils literal"><span class="pre">False</span></tt> on failure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; name of module to load</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Modules.load_init">
+<tt class="descname">load_init</tt><big>(</big><em>path</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules.load_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules.load_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all modules in <cite>path</cite>. Called when the bot starts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; path to search for modules</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Modules.modules_from_path">
+<tt class="descname">modules_from_path</tt><big>(</big><em>path</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules.modules_from_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules.modules_from_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the available modules in <cite>path</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; path to search for modules</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.Modules.unload">
+<tt class="descname">unload</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../_modules/xbotpp/modules.html#Modules.unload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xbotpp.modules.Modules.unload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unload the module <cite>name</cite>, calling the module&#8217;s <a class="reference internal" href="../moduleapi.html#xbotpp.modules.Module.unload" title="xbotpp.modules.Module.unload"><tt class="xref py py-func docutils literal"><span class="pre">unload()</span></tt></a>
+function before doing so.</p>
+<p>Returns <tt class="xref py py-const docutils literal"><span class="pre">True</span></tt> on success, <tt class="xref py py-const docutils literal"><span class="pre">False</span></tt> on failure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; name of module to unload</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="xbotpp.modules.isModule">
+<tt class="descclassname">modules.</tt><tt class="descname">isModule</tt><big>(</big><em>member</em><big>)</big><a class="headerlink" href="#xbotpp.modules.isModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if <cite>member</cite> is a module, else False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>member</strong> (<em>class</em>) &#8211; class to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="core.html"
+                        title="previous chapter">Bot</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="botio.html"
+                        title="next chapter">Bot IO</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/internal/modules.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="botio.html" title="Bot IO"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.html" title="Bot"
+             >previous</a> |</li>
+        <li><a href="../index.html">xbot++ 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Internal modules</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, aki--aki.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

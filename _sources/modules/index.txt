@@ -1,0 +1,11 @@
+.. _modules:
+
+Modules
+=======
+
+.. toctree::
+    sprunge
+    help
+    channel
+    admin
+    info

@@ -1,0 +1,5 @@
+admin
+=====
+
+.. automodule:: modules.admin
+   :members:
